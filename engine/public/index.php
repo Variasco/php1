@@ -30,16 +30,22 @@ switch ($page) {
         break;
 
     case 'gallery':
-        $params['images'] = getGallery();
+        $params['images'] = getAssocResult("SELECT `id`, `name`, `views` FROM `images` ORDER BY `views` DESC");
+        $params['message'] = $message;
         break;
+
+    case 'big_picture':
+        if (isset($_GET['id'])) {
+            $id = (int)$_GET['id'];
+            $params['row_affected'] = executeSql("UPDATE `images` SET `views` = `views` + 1 WHERE `id` = {$id}");
+            $params['bigImage'] = getOneResult("SELECT `id`, `name`, `views` FROM `images` WHERE `id` = {$id}");
+            break;
+        }
 
     case 'apicatalog':
         echo json_encode(getCatalog(), JSON_UNESCAPED_UNICODE);
         die();
-
 }
-
-_log($params, 'params');
 
 
 echo render($page, $params);

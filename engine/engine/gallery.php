@@ -1,5 +1,8 @@
 <?php
-include SERVER_PATH . "/../engine/classSimpleImage.php";
+
+$db = @mysqli_connect('localhost', 'root', 'root', 'gallery') or die('Error: ' . mysqli_connect_error());
+
+$message = '';
 
 if (isset($_FILES['userfile'])) {
     $whitelist = array(".png", ".jpg", ".gif");
@@ -15,7 +18,9 @@ if (isset($_FILES['userfile'])) {
                 $image->save(str_replace("big", "small", $path));
             }
 
-            header("Location: /?page=gallery");
+            executeSql("INSERT INTO `images` (`name`) VALUES ('{$_FILES['userfile']['name']}')");
+            $message = 'Фото успешно загружено';
+            header("Location: /?page=gallery&message={$message}");
             die();
 
         } elseif ($item === end($whitelist)) {
@@ -24,6 +29,6 @@ if (isset($_FILES['userfile'])) {
     }
 }
 
-function getGallery() {
-    return array_slice(scandir(SERVER_PATH . "/gallery_img/small/"), 2);
+if (isset($_GET['message'])) {
+    $message = strip_tags($_GET['message']);
 }
