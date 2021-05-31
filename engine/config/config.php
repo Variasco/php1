@@ -9,7 +9,7 @@ define('PASS', 'root');
 define('DB', 'gallery');
 
 include SERVER_PATH . "/../engine/db.php";
-include SERVER_PATH . "/../engine/function.php";
+include SERVER_PATH . "/../engine/render_functions.php";
 include SERVER_PATH . "/../engine/files.php";
 include SERVER_PATH . "/../engine/catalog.php";
 include SERVER_PATH . "/../engine/log.php";

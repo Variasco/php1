@@ -1,7 +1,5 @@
 <?php
 
-$db = @mysqli_connect('localhost', 'root', 'root', 'gallery') or die('Error: ' . mysqli_connect_error());
-
 $message = '';
 
 if (isset($_FILES['userfile'])) {
@@ -18,17 +16,30 @@ if (isset($_FILES['userfile'])) {
                 $image->save(str_replace("big", "small", $path));
             }
 
-            executeSql("INSERT INTO `images` (`name`) VALUES ('{$_FILES['userfile']['name']}')");
-            $message = 'Фото успешно загружено';
-            header("Location: /?page=gallery&message={$message}");
-            die();
+            insertPicture();
+            $message = 'Picture have been uploaded';
+            break;
 
         } elseif ($item === end($whitelist)) {
-            die("Sorry, we allow uploading only images");
+            $message = 'Sorry, we allow uploading only images';
         }
     }
+    header("Location: /?page=gallery&message={$message}");
+    die();
 }
 
-if (isset($_GET['message'])) {
-    $message = strip_tags($_GET['message']);
+function getGallery() {
+    return getAssocResult("SELECT `id`, `name`, `views` FROM `images` ORDER BY `views` DESC");
+}
+
+function getBigPicture(int $id) {
+    return getOneResult("SELECT `id`, `name`, `views` FROM `images` WHERE `id` = {$id}");
+}
+
+function viewsIncrement(int $id) {
+    executeSql("UPDATE `images` SET `views` = `views` + 1 WHERE `id` = {$id}");
+}
+
+function insertPicture() {
+    return executeSql("INSERT INTO `images` (`name`) VALUES ('{$_FILES['userfile']['name']}')");
 }
