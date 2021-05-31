@@ -21,25 +21,26 @@ switch ($page) {
         break;
 
     case 'files':
-       // if ($_POST[$_FILES]) {
-            //upload();
-           /// header();
-      //  }
-       // $params['message'] = $mes[$_GET['message']];
         $params['files'] = getFiles();
         break;
 
     case 'gallery':
         $params['images'] = getGallery();
+        if (isset($_GET['message'])) {
+            $params['message'] = strip_tags($_GET['message']);
+        }
+        break;
+
+    case 'big_picture':
+        if (isset($_GET['id'])) {
+            viewsIncrement($_GET['id']);
+            $params['bigImage'] = getBigPicture($_GET['id']);
+        }
         break;
 
     case 'apicatalog':
         echo json_encode(getCatalog(), JSON_UNESCAPED_UNICODE);
         die();
-
 }
-
-_log($params, 'params');
-
 
 echo render($page, $params);

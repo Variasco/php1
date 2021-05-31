@@ -1,5 +1,6 @@
 <?php
-include SERVER_PATH . "/../engine/classSimpleImage.php";
+
+$message = '';
 
 if (isset($_FILES['userfile'])) {
     $whitelist = array(".png", ".jpg", ".gif");
@@ -15,15 +16,30 @@ if (isset($_FILES['userfile'])) {
                 $image->save(str_replace("big", "small", $path));
             }
 
-            header("Location: /?page=gallery");
-            die();
+            insertPicture();
+            $message = 'Picture have been uploaded';
+            break;
 
         } elseif ($item === end($whitelist)) {
-            die("Sorry, we allow uploading only images");
+            $message = 'Sorry, we allow uploading only images';
         }
     }
+    header("Location: /?page=gallery&message={$message}");
+    die();
 }
 
 function getGallery() {
-    return array_slice(scandir(SERVER_PATH . "/gallery_img/small/"), 2);
+    return getAssocResult("SELECT `id`, `name`, `views` FROM `images` ORDER BY `views` DESC");
+}
+
+function getBigPicture(int $id) {
+    return getOneResult("SELECT `id`, `name`, `views` FROM `images` WHERE `id` = {$id}");
+}
+
+function viewsIncrement(int $id) {
+    executeSql("UPDATE `images` SET `views` = `views` + 1 WHERE `id` = {$id}");
+}
+
+function insertPicture() {
+    return executeSql("INSERT INTO `images` (`name`) VALUES ('{$_FILES['userfile']['name']}')");
 }
