@@ -14,3 +14,5 @@ include SERVER_PATH . "/../engine/classSimpleImage.php";
 include SERVER_PATH . "/../engine/gallery.php";
 include SERVER_PATH . "/../engine/catalog.php";
 include SERVER_PATH . "/../engine/cart.php";
+include SERVER_PATH . "/../engine/auth.php";
+include SERVER_PATH . "/../engine/admin.php";
