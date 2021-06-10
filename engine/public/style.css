@@ -136,3 +136,19 @@ gallery__photo:hover gallery__img {
     padding: 10px 32px;
 }
 
+.orders {
+    display: flex;
+    flex-direction: column;
+}
+
+.order {
+    display: flex;
+    justify-content: space-around;
+}
+
+.order__link {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+

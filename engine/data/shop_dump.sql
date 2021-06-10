@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 07 2021 г., 01:51
+-- Время создания: Июн 10 2021 г., 17:24
 -- Версия сервера: 8.0.19
 -- Версия PHP: 8.0.1
 
@@ -43,7 +43,12 @@ INSERT INTO `cart` (`id`, `product_id`, `quantity`, `session_id`) VALUES
 (6, 1, 1, '915got4oodh0b743ij4d963o9i9fd7bj'),
 (13, 1, 1, '8akc530irfkn9cs9uku8gkblj68p1ps2'),
 (14, 2, 2, '8akc530irfkn9cs9uku8gkblj68p1ps2'),
-(16, 3, 1, '8akc530irfkn9cs9uku8gkblj68p1ps2');
+(16, 3, 1, '8akc530irfkn9cs9uku8gkblj68p1ps2'),
+(17, 1, 2, 'ds3l337ehsfej511srrvulugn2jpapsa'),
+(18, 2, 2, 'ds3l337ehsfej511srrvulugn2jpapsa'),
+(19, 3, 1, 'ds3l337ehsfej511srrvulugn2jpapsa'),
+(20, 1, 1, 'oj1r0j35b9rt93q98icpu4rf82p6hlnf'),
+(21, 2, 2, 'oj1r0j35b9rt93q98icpu4rf82p6hlnf');
 
 -- --------------------------------------------------------
 
@@ -101,6 +106,49 @@ INSERT INTO `gallery` (`id`, `name`, `views`) VALUES
 (14, '14.jpg', 1),
 (15, '15.jpg', 7);
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `session_id` varchar(255) NOT NULL,
+  `status` enum('оформлен','обработан','отправлен','доставлен') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'оформлен'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`id`, `name`, `phone`, `session_id`, `status`) VALUES
+(2, 'user', '123', 'ds3l337ehsfej511srrvulugn2jpapsa', 'оформлен'),
+(3, 'admin', '12345', 'oj1r0j35b9rt93q98icpu4rf82p6hlnf', 'оформлен');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `users`
+--
+
+CREATE TABLE `users` (
+  `id` int UNSIGNED NOT NULL,
+  `login` varchar(255) NOT NULL,
+  `pass` varchar(255) NOT NULL,
+  `hash` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Дамп данных таблицы `users`
+--
+
+INSERT INTO `users` (`id`, `login`, `pass`, `hash`) VALUES
+(1, 'admin', '123', '167872689560c1f9c7b02b06.20319751'),
+(2, 'user', '123', NULL);
+
 --
 -- Индексы сохранённых таблиц
 --
@@ -124,6 +172,18 @@ ALTER TABLE `gallery`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -131,7 +191,7 @@ ALTER TABLE `gallery`
 -- AUTO_INCREMENT для таблицы `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT для таблицы `catalog`
@@ -144,6 +204,18 @@ ALTER TABLE `catalog`
 --
 ALTER TABLE `gallery`
   MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT для таблицы `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT для таблицы `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
