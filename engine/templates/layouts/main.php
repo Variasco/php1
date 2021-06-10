@@ -6,7 +6,11 @@
     <link rel="stylesheet" href="style.css?<?= uniqid(); ?>">
 </head>
 <body>
-<?=$menu?>
-<?=$content?>
+<nav class="menu">
+    <?=$menu?>
+</nav>
+<div id="main">
+    <?=$content?>
+</div>
 </body>
 </html>

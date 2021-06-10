@@ -29,17 +29,17 @@ if (isset($_FILES['userfile'])) {
 }
 
 function getGallery() {
-    return getAssocResult("SELECT `id`, `name`, `views` FROM `images` ORDER BY `views` DESC");
+    return getAssocResult("SELECT `id`, `name`, `views` FROM `gallery` ORDER BY `views` DESC");
 }
 
 function getBigPicture(int $id) {
-    return getOneResult("SELECT `id`, `name`, `views` FROM `images` WHERE `id` = {$id}");
+    return getOneResult("SELECT `id`, `name`, `views` FROM `gallery` WHERE `id` = {$id}");
 }
 
 function viewsIncrement(int $id) {
-    executeSql("UPDATE `images` SET `views` = `views` + 1 WHERE `id` = {$id}");
+    executeSql("UPDATE `gallery` SET `views` = `views` + 1 WHERE `id` = {$id}");
 }
 
 function insertPicture() {
-    return executeSql("INSERT INTO `images` (`name`) VALUES ('{$_FILES['userfile']['name']}')");
+    return executeSql("INSERT INTO `gallery` (`name`) VALUES ('{$_FILES['userfile']['name']}')");
 }

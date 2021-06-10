@@ -6,12 +6,11 @@ define('LAYOUTS_DIR', 'layouts/');
 define('HOST', 'localhost');
 define('USER', 'root');
 define('PASS', 'root');
-define('DB', 'gallery');
+define('DB', 'shop');
 
 include SERVER_PATH . "/../engine/db.php";
 include SERVER_PATH . "/../engine/render_functions.php";
-include SERVER_PATH . "/../engine/files.php";
-include SERVER_PATH . "/../engine/catalog.php";
-include SERVER_PATH . "/../engine/log.php";
 include SERVER_PATH . "/../engine/classSimpleImage.php";
 include SERVER_PATH . "/../engine/gallery.php";
+include SERVER_PATH . "/../engine/catalog.php";
+include SERVER_PATH . "/../engine/cart.php";

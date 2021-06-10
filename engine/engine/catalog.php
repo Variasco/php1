@@ -1,18 +1,9 @@
 <?php
-function getCatalog()
-{
-    return [
-        [
-            'name' => 'Пицца',
-            'price' => 24
-        ],
-        [
-            'name' => 'Чай',
-            'price' => 1
-        ],
-        [
-            'name' => 'Яблоко',
-            'price' => 12
-        ],
-    ];
+function getCatalog() {
+    return getAssocResult("SELECT `id`, `name`, `picture`, `price` FROM `catalog`");
 }
+
+function getOneGood($id) {
+    return getOneResult("SELECT `id`, `name`, `picture`, `description`, `price` FROM `catalog` WHERE `id` = {$id}");
+}
+

@@ -1,26 +1,12 @@
-<h2>Каталог</h2>
-<?php var_dump($catalog)?>
-<div>
-    <div>
-        <h2>Пицца</h2>
-        <img src="/img/pizza.jpeg" width="150"><br>
-        Цена: 24<br>
-        <button>Купить</button>
-        <hr>
-    </div>
-    <div>
-        <h2>Чай</h2>
-        <img src="/img/tea.png" width="150"><br>
-        Цена: 1<br>
-        <button>Купить</button>
-        <hr>
-    </div>
-    <div>
-        <h2>Яблоко</h2>
-        <img src="/img/apple.jpg" width="150"><br>
-        Цена: 12<br>
-        <button>Купить</button>
-        <hr>
-    </div>
-
+<div class="container">
+    <?php foreach ($catalog as $good): ?>
+        <div class="good">
+            <a class="good__link" href="?page=product&id=<?= $good['id'] ?>">
+                <h2><?= $good['name'] ?></h2>
+                <img src="product_img/<?= $good['picture'] ?>" alt="<?= $good['picture'] ?>">
+            </a>
+            <p><?= $good['price'] ?> &#8381;</p>
+            <a class="button" href="?page=catalog&action=buy&id=<?= $good['id'] ?>">В корзину</a>
+        </div>
+    <?php endforeach; ?>
 </div>
